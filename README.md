@@ -9,7 +9,7 @@ Minimal x86 assembly code to invoke the RDRAND/RDSEED instructions.
 >  * `gcc version 7.4.0 (Ubuntu 7.4.0-1ubuntu1~18.04.1) - Target: x86_64-linux-gnu`
 >  * `clang version 6.0.0-1ubuntu2 (tags/RELEASE_600/final) - Target: x86_64-pc-linux-gnu`
 
-To build, follow the instructions below. To be able to build both x86 and x86_64, correct host and compiler toolchains needs to be installed (outside the scope of this manual):
+To build, follow the instructions below. To be able to build both x86 and x86_64, correct host and compiler toolchains need to be installed (outside the scope of this manual):
 
 ```bash
 # Make all (x86 and x86_64 targets)
