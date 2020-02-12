@@ -16,17 +16,17 @@ To build, follow the instructions below. To be able to build both x86 and x86_64
 [user@host:/some/dir/git/intel-drng] make
 
 # Make only x86/x86_64 targets
-[user@host:/some/dir/git/intel-drng] make x86
-[user@host:/some/dir/git/intel-drng] make x86_64
+user@host:/some/dir/git/intel-drng$ make x86
+user@host:/some/dir/git/intel-drng$ make x86_64
 
 # To use clang
-[user@host:/some/dir/git/intel-drng] make CC=clang
+user@host:/some/dir/git/intel-drng$ make CC=clang
 
 # To run the generated 64-bit binary
-[user@host:/some/dir/git/intel-drng] ./test_random_64
+user@host:/some/dir/git/intel-drng$ ./test_random_64
 
 # To run the generated 32-bit binary
-[user@host:/some/dir/git/intel-drng] ./test_random_32
+user@host:/some/dir/git/intel-drng$ ./test_random_32
 ```
 
 **References:**
