@@ -1,7 +1,7 @@
 # Intel Digital Random Number Generator (DRNG) Utility
-### A simple (and naive) project that uses Intel's DRNG capabilities for random number generation and random seed generation.
+### A simple (fun) project that illustrates the use of Intel's DRNG capabilities for random number generation and random seed generation.
 
-Minimal x86 assembly code to invoke the RDRAND/RDSEED instructions.
+Minimal x86/x86_64 assembly code to invoke the RDRAND/RDSEED instructions from C source.
 
 > Keywords: Intel, DRBG, DRNG, RDRAND, RDSEED, random number
 
