@@ -19,6 +19,7 @@
 .global random_32
 .global random_16
 .global rdrand_capability
+.global rdseed_capability
 
 /*
  * Returns 1 if RDRAND capability is available; 0 otherwise
@@ -27,23 +28,55 @@ rdrand_capability:
    push  %rbp
    movq  %rsp, %rbp
 
+   mov   %rbx, %rsi   # Save RBX since CPUID clobbers RBX
+
    movq  $1,   %rax
    cpuid
 
    movl  $1,   %r8d
    shl   $30,  %r8d   # 30th bit of ECX for RDRAND
    test  %ecx, %r8d
-   je    no           # RDRAND not supported
+   jz    no_rdrand    # RDRAND not supported
 
    movq  $1,   %rax
-   jmp   done
+   jmp   done_rdrand
 
-no:
+no_rdrand:
    movq  $0,   %rax
 
-done:
+done_rdrand:
+   mov  %rsi, %rbx   # Restore RBX
    popq %rbp
    retq
+
+/*
+ * Returns 1 if RDSEED capability is available; 0 otherwise
+ */
+rdseed_capability:
+   push  %rbp
+   mov   %rsp, %rbp
+
+   mov   %rbx, %rsi   # Save RBX since CPUID clobbers RBX
+
+   mov   $1,   %rax
+   cpuid
+
+   mov   $1,   %r8d
+   shl   $18,  %r8d   # 18th bit of EBX for RDSEED
+   test  %ebx, %r8d
+   jz    no_rdseed    # RDSEED not supported
+
+   mov   $1,   %rax
+   jmp   done_rdseed
+
+no_rdseed:
+   mov   $0,   %rax
+
+done_rdseed:
+   mov  %rsi, %rbx   # Restore RBX
+   pop  %rbp
+   ret
+
 
 /* 64-bit random number */
 random_64:
@@ -52,6 +85,7 @@ random_64:
 
 retry64:
     rdrand %rax
+    pause           # Useful for multithreaded applications
     jnc retry64     # Retry if carry flag was not set
 
     pop %rbp
@@ -64,6 +98,7 @@ random_32:
 
 retry32:
     rdrand %eax
+    pause           # Useful for multithreaded applications
     jnc retry32     # Retry if carry flag was not set
 
     pop %rbp
@@ -76,6 +111,7 @@ random_16:
 
 retry16:
     rdrand %ax
+    pause           # Useful for multithreaded applications
     jnc retry16     # Retry if carry flag was not set
 
     pop %rbp

@@ -33,18 +33,33 @@ extern uint32_t random_32();
 extern uint16_t random_16();
 
 extern uint8_t rdrand_capability();
+extern uint8_t rdseed_capability();
 
 // Declaration
-bool is_random_available();
+bool is_rdrand_available();
+bool is_rdseed_available();
 
 // Definition
 /**
  * Returns True if RDRAND capability is available.
  * Returns False otherwise.
  */
-inline bool is_random_available()
+inline bool is_rdrand_available()
 {
     if (rdrand_capability()) {
+        return true;
+    }
+
+    return false;
+}
+
+/**
+ * Returns True if RDSEED capability is available.
+ * Returns False otherwise.
+ */
+inline bool is_rdseed_available()
+{
+    if (rdseed_capability()) {
         return true;
     }
 

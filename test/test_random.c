@@ -3,15 +3,8 @@
 
 #include "intel_random.h"
 
-int main (int argc, char *argv[])
+void generate_random_numbers()
 {
-    if (is_random_available()) {
-        printf("Intel DRNG Support Available\n");
-    } else {
-        printf("Intel DRNG Support Not available\n");
-        return -1;
-    }
-
     // Generate a random number of [1..65535] random numbers
     const uint16_t NUM_OF_RAND = random_16();
     printf ("Generating %d random numbers...\n", NUM_OF_RAND);
@@ -31,6 +24,24 @@ int main (int argc, char *argv[])
     }
 
     printf ("Generated %d random numbers...\n", NUM_OF_RAND);
+
+
+}
+
+int main (int argc, char *argv[])
+{
+    if (is_rdrand_available()) {
+        printf("Intel DRNG RDRAND Support Available\n");
+        generate_random_numbers();
+    } else {
+        printf("Intel DRNG RDRAND Support Not available\n");
+    }
+
+    if (is_rdseed_available()) {
+        printf("Intel DRNG RDSEED Support Available\n");
+    } else {
+        printf("Intel DRNG RDSEED Support Not available\n");
+    }
 
     return 0;
 }

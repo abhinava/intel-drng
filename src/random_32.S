@@ -18,6 +18,7 @@
 .global random_32
 .global random_16
 .global rdrand_capability
+.global rdseed_capability
 
 /*
  * Returns 1 if RDRAND capability is available; 0 otherwise
@@ -26,24 +27,54 @@ rdrand_capability:
    push  %ebp
    mov   %esp, %ebp
 
+   mov   %ebx, %esi   # Save EBX since CPUID clobbers EBX
+
    mov   $1,   %eax
    cpuid
 
    mov   $1,   %edi
    shl   $30,  %edi   # 30th bit of ECX for RDRAND
    test  %ecx, %edi
-   je    no           # RDRAND not supported
+   jz    no_rdrand    # RDRAND not supported
 
    mov   $1,   %eax
-   jmp   done
+   jmp   done_rdrand
 
-no:
+no_rdrand:
    mov   $0,   %eax
 
-done:
+done_rdrand:
+   mov  %esi, %ebx   # Restore EBX
    pop  %ebp
    ret
 
+/*
+ * Returns 1 if RDSEED capability is available; 0 otherwise
+ */
+rdseed_capability:
+   push  %ebp
+   mov   %esp, %ebp
+
+   mov   %ebx, %esi   # Save EBX since CPUID clobbers EBX
+
+   mov   $1,   %eax
+   cpuid
+
+   mov   $1,   %edi
+   shl   $18,  %edi   # 18th bit of EBX for RDSEED
+   test  %ebx, %edi
+   jz    no_rdseed    # RDSEED not supported
+
+   mov   $1,   %eax
+   jmp   done_rdseed
+
+no_rdseed:
+   mov   $0,   %eax
+
+done_rdseed:
+   mov  %esi, %ebx   # Restore EBX
+   pop  %ebp
+   ret
 
 /* 32-bit random number */
 random_32:
@@ -52,6 +83,7 @@ random_32:
 
 retry32:
     rdrand %eax
+    pause           # Useful for multithreaded applications
     jnc retry32     # Retry if carry flag was not set
 
     pop %ebp
@@ -64,6 +96,7 @@ random_16:
 
 retry16:
     rdrand %ax
+    pause           # Useful for multithreaded applications
     jnc retry16     # Retry if carry flag was not set
 
 done16:
