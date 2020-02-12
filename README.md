@@ -12,12 +12,21 @@ Minimal x86 assembly code to invoke the RDRAND/RDSEED instructions.
 To build, follow the instructions below:
 
 ```bash
+# Make all (x86 and x86_64 targets)
 [user@host:~] make
+
+# Make only x86/x86_64 targets
 [user@host:~] make x86
 [user@host:~] make x86_64
 
 # To use clang
 [user@host:~] make CC=clang
+
+# To run the generated 64-bit binary
+[user@host:~] ./test_random_64
+
+# To run the generated 32-bit binary
+[user@host:~] ./test_random_32
 ```
 
 **References:**
