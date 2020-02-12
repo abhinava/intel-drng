@@ -1,9 +1,9 @@
-# Intel DRNG Utility
+# Intel Digital Random Number Generator (DRNG) Utility
 ### A simple (and naive) project that uses Intel's DRNG capabilities for random number generation and random seed generation.
 
 > Keywords: Intel, DRBG, DRNG, RDRAND, RDSEED, random number
 
-> Compilers: `GCC 7.4.0 (64-bit and 32-bit) on Ubuntu 18.04`
+> Compiler(s): `GCC 7.4.0 (64-bit and 32-bit) on Ubuntu 18.04`
 
 To build, follow the instructions below:
 
