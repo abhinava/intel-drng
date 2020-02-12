@@ -31,9 +31,12 @@ rdrand_capability:
 
    mov   $1,   %eax
    cpuid
-
-   mov   $1,   %edi
-   shl   $30,  %edi   # 30th bit of ECX for RDRAND
+   
+   /*
+    mov   $1,   %edi
+    shl   $30,  %edi   # 30th bit of ECX for RDRAND
+   */
+   mov   $0x40000000, %edi # 0x40000000 is 30th bit set
    test  %ecx, %edi
    jz    no_rdrand    # RDRAND not supported
 
@@ -57,11 +60,15 @@ rdseed_capability:
 
    mov   %ebx, %esi   # Save EBX since CPUID clobbers EBX
 
-   mov   $1,   %eax
+   mov   $7,   %eax   # EAX=7 & ECX=0 to get Extended Features
+   mov   $0,   %ecx
    cpuid
 
+/*
    mov   $1,   %edi
    shl   $18,  %edi   # 18th bit of EBX for RDSEED
+*/
+   mov   $0x40000, %edi # 0x40000 is 18th bit set
    test  %ebx, %edi
    jz    no_rdseed    # RDSEED not supported
 

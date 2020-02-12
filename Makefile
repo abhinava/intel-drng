@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS=-I ./include
+CFLAGS=-g -I ./include
 ARCH=
 DEPS=./include/intel_random.h ./src/*.S
 BIN_32=test_random_32
