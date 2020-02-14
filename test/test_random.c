@@ -5,7 +5,7 @@
 
 void generate_random_numbers()
 {
-    // Generate a random number of [1..65535] random numbers
+    // Generate a random number ([1..65535]) of random numbers
     const uint16_t NUM_OF_RAND = random_16();
     printf ("Generating %d random numbers...\n", NUM_OF_RAND);
 
@@ -24,8 +24,6 @@ void generate_random_numbers()
     }
 
     printf ("Generated %d random numbers...\n", NUM_OF_RAND);
-
-
 }
 
 int main (int argc, char *argv[])

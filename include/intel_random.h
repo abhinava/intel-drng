@@ -25,6 +25,12 @@
 #include <stdint.h>
 #include <stdbool.h>
 
+// This block is required to allow C++ compatibility.
+// See the corresponding scope closing at the end of the file.
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #ifdef __x86_64__
 extern uint64_t _random_64();
 
@@ -36,7 +42,7 @@ inline uint64_t random_64()
 {
     return _random_64();
 }
-#endif
+#endif // __x86_64__
 
 extern uint32_t _random_32();
 extern uint16_t _random_16();
@@ -90,5 +96,9 @@ inline bool is_rdseed_available()
 
     return false;
 }
+
+#ifdef __cplusplus
+}
+#endif // __cplusplus
 
 #endif // _INTEL_RANDOM_H_
