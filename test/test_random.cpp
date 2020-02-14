@@ -36,7 +36,7 @@ class RandomNumber
         virtual ~RandomNumber () = 0;
 };
 
-void GenerateRandomNumbers()
+static void GenerateRandomNumbers()
 {
     // Generate a random number ([1..65535]) of random numbers
     const uint16_t NUM_OF_RAND = random_16();
