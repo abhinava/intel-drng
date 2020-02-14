@@ -1,18 +1,14 @@
 # Intel Digital Random Number Generator (DRNG) Utility
 ### A simple (fun) project that illustrates the use of Intel's DRNG capabilities for random number generation and random seed generation.
 
-Minimal x86/x86_64 assembly code to invoke the RDRAND/RDSEED instructions from C source.
+Minimal x86/x86_64 assembly code to invoke the RDRAND/RDSEED instructions from C source. **_There are no C source files; There is a single header file and a couple of ASM (.S) files._**
 
-> Keywords: Intel, DRBG, DRNG, RDRAND, RDSEED, random number
-
-> **Tested with the following compiler(s)**:
->  * Linux
->      * `gcc version 7.4.0 (Ubuntu 7.4.0-1ubuntu1~18.04.1) - Target: x86_64-linux-gnu`
->      * `clang version 6.0.0-1ubuntu2 (tags/RELEASE_600/final) - Target: x86_64-pc-linux-gnu`
->  * OS X
->      * `Apple clang version 11.0.0 (clang-1100.0.33.17) - Target: x86_64-apple-darwin19.3.0`
-
-**_There are no C source files; There is a single header file and a couple of ASM (.S) files._**
+**Tested with the following compiler(s)**:
+ * Linux
+     * `gcc version 7.4.0 (Ubuntu 7.4.0-1ubuntu1~18.04.1) - Target: x86_64-linux-gnu`
+     * `clang version 6.0.0-1ubuntu2 (tags/RELEASE_600/final) - Target: x86_64-pc-linux-gnu`
+ * OS X
+     * `Apple clang version 11.0.0 (clang-1100.0.33.17) - Target: x86_64-apple-darwin19.3.0`
 
 We have provided a few simple test programs to show the usage. To build these tests, follow the instructions below. To be able to build both x86 and x86_64, appropriate compiler toolchains need to be installed (outside the scope of this manual):
 
@@ -37,6 +33,8 @@ user@host:/some/dir/git/intel-drng$ ./test_random_32
 **References:**
   * [Intel® Digital Random Number Generator (DRNG) Software Implementation Guide](https://software.intel.com/en-us/articles/intel-digital-random-number-generator-drng-software-implementation-guide "Intel DRNG")
   * [The Difference Between RDRAND and RDSEED](https://software.intel.com/en-us/blogs/2012/11/17/the-difference-between-rdrand-and-rdseed "RDRAND and RDSEED")
+
+> _Keywords: Intel, DRBG, DRNG, RDRAND, RDSEED, random number, TRNG, CSPRNG_
 
 ---
 **Abhinava Sadasivarao** (abhinava.sadasivarao+github@gmail.com)
