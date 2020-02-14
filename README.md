@@ -5,11 +5,16 @@ Minimal x86/x86_64 assembly code to invoke the RDRAND/RDSEED instructions from C
 
 > Keywords: Intel, DRBG, DRNG, RDRAND, RDSEED, random number
 
-> **Compiler(s)**:
->  * `gcc version 7.4.0 (Ubuntu 7.4.0-1ubuntu1~18.04.1) - Target: x86_64-linux-gnu`
->  * `clang version 6.0.0-1ubuntu2 (tags/RELEASE_600/final) - Target: x86_64-pc-linux-gnu`
+> **Tested with the following compiler(s)**:
+>  * Linux
+>      * `gcc version 7.4.0 (Ubuntu 7.4.0-1ubuntu1~18.04.1) - Target: x86_64-linux-gnu`
+>      * `clang version 6.0.0-1ubuntu2 (tags/RELEASE_600/final) - Target: x86_64-pc-linux-gnu`
+>  * OS X
+>      * `Apple clang version 11.0.0 (clang-1100.0.33.17) - Target: x86_64-apple-darwin19.3.0`
 
-To build, follow the instructions below. To be able to build both x86 and x86_64, correct host and compiler toolchains need to be installed (outside the scope of this manual):
+**_There are no C source files; There is a single header file and a couple of ASM (.S) files._**
+
+We have provided a few simple test programs to show the usage. To build these tests, follow the instructions below. To be able to build both x86 and x86_64, appropriate compiler toolchains need to be installed (outside the scope of this manual):
 
 ```bash
 # Make all (x86 and x86_64 targets)
