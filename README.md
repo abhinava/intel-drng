@@ -28,7 +28,7 @@ user@host:/some/dir/git/intel-drng$ make x86_64
 # To use clang compilers
 user@host:/some/dir/git/intel-drng$ make CC=clang CXX=clang++
 
-# To use gcc C compiler and `clang` C++ compiler
+# To use gcc C compiler and clang C++ compiler
 user@host:/some/dir/git/intel-drng$ make CC=gcc CXX=clang++
 
 # To run the generated 64-bit C binary
