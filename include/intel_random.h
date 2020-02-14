@@ -26,27 +26,52 @@
 #include <stdbool.h>
 
 #ifdef __x86_64__
-extern uint64_t random_64();
-#endif
-
-extern uint32_t random_32();
-extern uint16_t random_16();
-
-extern uint8_t rdrand_capability();
-extern uint8_t rdseed_capability();
+extern uint64_t _random_64();
 
 // Declaration
+uint64_t random_64();
+
+// Definition
+inline uint64_t random_64() 
+{
+    return _random_64();
+}
+#endif
+
+extern uint32_t _random_32();
+extern uint16_t _random_16();
+
+extern uint8_t _rdrand_capability();
+extern uint8_t _rdseed_capability();
+
+/*
+ * Declarations
+ */
+uint32_t random_32();
+uint16_t random_16();
 bool is_rdrand_available();
 bool is_rdseed_available();
 
-// Definition
+/*
+ * Definitions
+ */
+inline uint32_t random_32() 
+{
+    return _random_32();
+}
+
+inline uint16_t random_16() 
+{
+    return _random_16();
+}
+
 /**
  * Returns True if RDRAND capability is available.
  * Returns False otherwise.
  */
 inline bool is_rdrand_available()
 {
-    if (rdrand_capability()) {
+    if (_rdrand_capability()) {
         return true;
     }
 
@@ -59,7 +84,7 @@ inline bool is_rdrand_available()
  */
 inline bool is_rdseed_available()
 {
-    if (rdseed_capability()) {
+    if (_rdseed_capability()) {
         return true;
     }
 
