@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "intel_random.h"
+#include "intel_drng.h"
 
 class RandomNumber
 {

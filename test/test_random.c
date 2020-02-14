@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <inttypes.h>
 
-#include "intel_random.h"
+#include "intel_drng.h"
 
 void generate_random_numbers()
 {
