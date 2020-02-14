@@ -1,11 +1,10 @@
 /**
- *
  * Simple x86_64 assembly routines to retrieve 64-bit, 32-bit
  * and 16-bit true random numbers and random number seeds 
  * using Intel's DRNG instructions.
  *
  * TODO:
- *   - Provide RDSEED instruction support
+ *   - Provide RDSEED instruction based generation of seeds
  *
  * Reference:
  *  - https://software.intel.com/en-us/articles/intel-digital-random-number-generator-drng-software-implementation-guide
@@ -15,16 +14,16 @@
  *
  */
 
-.global random_64
-.global random_32
-.global random_16
-.global rdrand_capability
-.global rdseed_capability
+.global _random_64
+.global _random_32
+.global _random_16
+.global _rdrand_capability
+.global _rdseed_capability
 
 /*
  * Returns 1 if RDRAND capability is available; 0 otherwise
  */
-rdrand_capability:
+_rdrand_capability:
    push  %rbp
    movq  %rsp, %rbp
 
@@ -55,7 +54,7 @@ done_rdrand:
 /*
  * Returns 1 if RDSEED capability is available; 0 otherwise
  */
-rdseed_capability:
+_rdseed_capability:
    push  %rbp
    mov   %rsp, %rbp
 
@@ -86,7 +85,7 @@ done_rdseed:
 
 
 /* 64-bit random number */
-random_64:
+_random_64:
     push  %rbp
     movq  %rsp, %rbp
 
@@ -99,7 +98,7 @@ retry64:
     retq
 
 /* 32-bit random number */
-random_32:
+_random_32:
     push  %rbp
     movq  %rsp, %rbp
 
@@ -112,7 +111,7 @@ retry32:
     retq
 
 /* 16-bit random number */
-random_16:
+_random_16:
     push  %rbp
     movq  %rsp, %rbp
 
