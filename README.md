@@ -25,10 +25,10 @@ We have provided a few simple C and C++ test programs to show the usage. To buil
 user@host:/some/dir/git/intel-drng$ make x86
 user@host:/some/dir/git/intel-drng$ make x86_64
 
-# To use `clang` compilers
+# To use clang compilers
 user@host:/some/dir/git/intel-drng$ make CC=clang CXX=clang++
 
-# To use `gcc` C compiler and `clang` C++ compiler
+# To use gcc C compiler and `clang` C++ compiler
 user@host:/some/dir/git/intel-drng$ make CC=gcc CXX=clang++
 
 # To run the generated 64-bit C binary
@@ -40,7 +40,7 @@ user@host:/some/dir/git/intel-drng$ ./test_c_random_32
 # To run the generated 64-bit C++ binary
 user@host:/some/dir/git/intel-drng$ ./test_cpp_random_64
 
-# To run the generated 32-bit C binary
+# To run the generated 32-bit C++ binary
 user@host:/some/dir/git/intel-drng$ ./test_cpp_random_32
 ```
 
