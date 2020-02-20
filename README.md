@@ -3,6 +3,8 @@
 
 Minimal x86/x86_64 assembly code to invoke the RDRAND/RDSEED instructions from C/C++ source. **_There is a single header file (that needs to be included) and a couple of ASM (.S) files (which actually implement the routines that invoke the `RDSEED` and `RDRAND` instructions._**
 
+Given that these instructions don't require any Ring 0 privileges, they can be invoked from user space. Also, they are _container friendly_; Any applications running inside a Docker/LXC container can invoke these DRNG instructions.
+
 **Tested with the following compiler(s)**:
  * Linux
      * C
