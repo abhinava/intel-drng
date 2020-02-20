@@ -1,7 +1,7 @@
 # Intel Digital Random Number Generator (DRNG) Utility
 ### A simple (fun) project that illustrates the use of Intel's DRNG capabilities for random number generation and random seed generation.
 
-Minimal x86/x86_64 assembly code to invoke the RDRAND/RDSEED instructions from C/C++ source. **_There is a single header file (that needs to be included) and a couple of ASM (.S) files (which actually implement the routines that invoke the `RDSEED` and `RDRAND` instructions._**
+Minimal x86/x86_64 assembly code to invoke the RDRAND/RDSEED instructions from C/C++ source. **_There is a single header file (that needs to be included) and a couple of ASM (.S) files (which actually implement the routines that invoke the `RDSEED` and `RDRAND` instructions._**. Relies on the `CPUID` instruction to determine whether the processor supports these capabilities.
 
 Given that these instructions don't require any Ring 0 privileges, they can be invoked from user space. Also, they are _container friendly_; Any applications running inside a Docker/LXC container can invoke these DRNG instructions.
 
