@@ -22,51 +22,75 @@
 #ifndef _INTEL_RANDOM_H_
 #define _INTEL_RANDOM_H_
 
-#include <stdint.h>
-#include <stdbool.h>
-
 // This block is required to allow C++ compatibility.
 // See the corresponding scope closing at the end of the file.
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-#ifdef __x86_64__
-extern uint64_t _random_64();
+#ifdef __KERNEL__ // Needed for kernel modules
+#include <linux/types.h>
+// Use Linux kernel's unsigned integer types
+#define U16 u16
+#define U32 u32
+#define BOOL u8
+#define TRUE 1
+#define FALSE 0
+#else             // Userspace applications
+// Use standard C unsigned integer types
+#define U16 uint16_t
+#define U32 uint32_t 
+#define BOOL bool
+#define TRUE true 
+#define FALSE false
+#include <stdint.h>
+#include <stdbool.h>
+#endif
+
+#ifdef __x86_64__  // If the host is 64-bit capable
+#ifdef __KERNEL__
+// Use Linux kernel's unsigned integer types
+#define U64 u64
+#else
+// Use standard C unsigned integer types
+#define U64 uint64_t
+#endif
+
+extern U64 _random_64(void);
 
 // Declaration
-uint64_t random_64();
+U64 random_64(void);
 
 // Definition
-inline uint64_t random_64() 
+inline U64 random_64(void) 
 {
     return _random_64();
 }
 #endif // __x86_64__
 
-extern uint32_t _random_32();
-extern uint16_t _random_16();
+extern U32 _random_32(void);
+extern U16 _random_16(void);
 
-extern uint8_t _rdrand_capability();
-extern uint8_t _rdseed_capability();
+extern uint8_t _rdrand_capability(void);
+extern uint8_t _rdseed_capability(void);
 
 /*
  * Declarations
  */
-uint32_t random_32();
-uint16_t random_16();
-bool is_rdrand_available();
-bool is_rdseed_available();
+U32 random_32(void);
+U16 random_16(void);
+BOOL is_rdrand_available(void);
+BOOL is_rdseed_available(void);
 
 /*
  * Definitions
  */
-inline uint32_t random_32() 
+inline U32 random_32(void) 
 {
     return _random_32();
 }
 
-inline uint16_t random_16() 
+inline U16 random_16(void) 
 {
     return _random_16();
 }
@@ -75,26 +99,26 @@ inline uint16_t random_16()
  * Returns True if RDRAND capability is available.
  * Returns False otherwise.
  */
-inline bool is_rdrand_available()
+inline BOOL is_rdrand_available(void)
 {
     if (_rdrand_capability()) {
-        return true;
+        return TRUE;
     }
 
-    return false;
+    return FALSE;
 }
 
 /**
  * Returns True if RDSEED capability is available.
  * Returns False otherwise.
  */
-inline bool is_rdseed_available()
+inline BOOL is_rdseed_available(void)
 {
     if (_rdseed_capability()) {
-        return true;
+        return TRUE;
     }
 
-    return false;
+    return FALSE;
 }
 
 #ifdef __cplusplus
