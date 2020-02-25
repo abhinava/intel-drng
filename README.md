@@ -5,7 +5,7 @@ Minimal x86/x86_64 assembly code to invoke the RDRAND/RDSEED instructions from C
 
 Given that these instructions don't require any Ring 0 privileges, they can be invoked from user space. Also, they are _container friendly_; Any applications running inside a Docker/LXC container can invoke these DRNG instructions.
 
-This library is also usable in Linux kernel modules (LKM). See the instructions [below](#-linux-kernel-module-use).
+This library is also usable in Linux kernel modules (LKM). See the instructions [below](#linux-kernel-module-use).
 
 **Tested with the following compiler(s)**:
  * Linux
