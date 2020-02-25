@@ -9,7 +9,6 @@
  *
  * TODO:
  *   - Provide RDSEED utilities
- *   - Test compiler independence (clang v/s gcc)
  *
  * Reference:
  *  - https://software.intel.com/en-us/articles/intel-digital-random-number-generator-drng-software-implementation-guide
@@ -19,8 +18,8 @@
  *
  */
 
-#ifndef _INTEL_RANDOM_H_
-#define _INTEL_RANDOM_H_
+#ifndef _INTEL_DRNG_H_
+#define _INTEL_DRNG_H_
 
 // This block is required to allow C++ compatibility.
 // See the corresponding scope closing at the end of the file.
@@ -71,8 +70,8 @@ inline U64 random_64(void)
 extern U32 _random_32(void);
 extern U16 _random_16(void);
 
-extern uint8_t _rdrand_capability(void);
-extern uint8_t _rdseed_capability(void);
+extern U16 _rdrand_capability(void);
+extern U16 _rdseed_capability(void);
 
 /*
  * Declarations
