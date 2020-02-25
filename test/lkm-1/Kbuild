@@ -1,0 +1,8 @@
+EXTRA_CFLAGS = -Wall -g
+MODULE_HOME = ""
+
+obj-m += intel-drng.o
+
+ccflags-y = -I$(MODULE_HOME)/include -Wall -g
+intel-drng-y = intel_drng.o
+intel-drng-y += ../../src/random_64.o
