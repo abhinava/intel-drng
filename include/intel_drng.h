@@ -37,14 +37,14 @@ extern "C" {
 #define TRUE 1
 #define FALSE 0
 #else             // Userspace applications
-// Use standard C unsigned integer types
+#include <stdint.h>
+#include <stdbool.h>
 #define U16 uint16_t
+// Use standard C unsigned integer types
 #define U32 uint32_t 
 #define BOOL bool
 #define TRUE true 
 #define FALSE false
-#include <stdint.h>
-#include <stdbool.h>
 #endif
 
 #ifdef __x86_64__  // If the host is 64-bit capable
