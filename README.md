@@ -38,7 +38,7 @@ user@host:/some/dir/git/intel-drng$ ./test_cpp_random_32
 
 ### Use in Linux Kernel Modules
 
-This RDRAND/RDSEED library can also be used within the kernel in case true random numbers or seeds are needed in kernel space (such as in drivers or Linux kernel modules (LKM)). The same ASM source as well as the header files are usable. In case of LKMs, ensure the Kbuild is setup correctly to have the ASM source and header files be available for building. **_We assume that appropriate kernel headers and build tools are installed_** (see [this](https://kernelnewbies.org/KernelHeaders) and [this](https://www.kernel.org/doc/Documentation/kbuild/modules.txt) for some references. Refer to your Linux distribution's guide on how to install kernel header files.)
+This RDRAND/RDSEED library can also be used within the kernel in case true random numbers or seeds are needed in kernel space (such as in drivers or Linux kernel modules (LKM)). The same ASM source as well as the header files are usable. In case of LKMs, ensure the Kbuild is setup correctly to have the ASM source and header files be available for building. **_We assume that appropriate kernel headers and build tools are installed_** (_See [this](https://kernelnewbies.org/KernelHeaders) and [this](https://www.kernel.org/doc/Documentation/kbuild/modules.txt) for some references. Refer to your Linux distribution's guide on how to install kernel header files._)
 
 ```
 # Go to the 'lkm-1' directory
@@ -54,10 +54,11 @@ user@host:/some/dir/git/intel-drng/test/lkm-1$ sudo insmod ./intel-drng.ko
 user@host:/some/dir/git/intel-drng/test/lkm-1$ dmesg
 ...
 ...
-[10573524.704585] Loading Intel DRNG Accessor Module
-[10573524.704587] 64-bit Random Number: 2181635107122498510
-[10573524.704587] 32-bit Random Number: 2218904060
-[10573524.704588] 16-bit Random Number: 30025
+[10742207.081255] Loading Intel DRNG Accessor Module
+[10742207.081256] RDRAND Capability Available!
+[10742207.081257] 64-bit Random Number: 2154063583269200405
+[10742207.081258] 32-bit Random Number: 1442452667
+[10742207.081258] 16-bit Random Number: 21079
 
 # Unload the kernel module
 user@host:/some/dir/git/intel-drng/test/lkm-1$ sudo rmmod intel-drng.ko
@@ -66,10 +67,11 @@ user@host:/some/dir/git/intel-drng/test/lkm-1$ sudo rmmod intel-drng.ko
 user@host:/some/dir/git/intel-drng/test/lkm-1$ dmesg
 ...
 ...
-[10573670.742170] Unloading Intel DRNG Accessor Module... Goodbye!
-[10573670.742173] 64-bit Random Number: 11810063415406240295
-[10573670.742175] 32-bit Random Number: 3370028278
-[10573670.742177] 16-bit Random Number: 45916
+[10742509.671822] Unloading Intel DRNG Accessor Module... Goodbye!
+[10742509.671825] RDRAND Capability Available!
+[10742509.671827] 64-bit Random Number: 73512867501160111
+[10742509.671829] 32-bit Random Number: 261813647
+[10742509.671831] 16-bit Random Number: 31616
 
 # Cleanup
 user@host:/some/dir/git/intel-drng/test/lkm-1$ make clean
