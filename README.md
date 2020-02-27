@@ -5,19 +5,7 @@ Minimal x86/x86_64 assembly code to invoke the RDRAND/RDSEED instructions from C
 
 Given that these instructions don't require any Ring 0 privileges, they can be invoked from user space. Also, they are _container friendly_; Any applications running inside a Docker/LXC container can invoke these DRNG instructions.
 
-This library is also usable in Linux kernel modules (LKM). See the instructions [below](#linux-kernel-module-use).
-
-**Tested with the following compiler(s)**:
- * Linux
-     * C
-         * `(gcc -v) gcc version 7.4.0 (Ubuntu 7.4.0-1ubuntu1~18.04.1) - Target: x86_64-linux-gnu`
-         * `(clang -v) clang version 6.0.0-1ubuntu2 (tags/RELEASE_600/final) - Target: x86_64-pc-linux-gnu`
-     * C++
-         * `(g++ -v) gcc version 7.4.0 (Ubuntu 7.4.0-1ubuntu1~18.04.1) - Target: x86_64-linux-gnu`
-         * `(clang++ -v) clang version 6.0.0-1ubuntu2 (tags/RELEASE_600/final) - Target: x86_64-pc-linux-gnu`
- * OS X
-     * C
-         * `(gcc -v) Apple clang version 11.0.0 (clang-1100.0.33.17) - Target: x86_64-apple-darwin19.3.0`
+This library is also usable in Linux kernel modules (LKM). See the instructions [below](#use-in-linux-kernel-modules).
 
 We have provided a few simple C and C++ test programs to show the usage. To build these tests, follow the instructions below. To be able to build both x86 and x86_64, appropriate compiler toolchains need to be installed (outside the scope of this manual):
 
@@ -48,21 +36,21 @@ user@host:/some/dir/git/intel-drng$ ./test_cpp_random_64
 user@host:/some/dir/git/intel-drng$ ./test_cpp_random_32
 ```
 
-### Linux Kernel Module Use
+### Use in Linux Kernel Modules
 
-This RDRAND/RDSEED library can also be used within Linux kernel modules (LKM) in case true random numbers or seeds are needed in kernel space code. The same ASM source as well as the header files are usable. The trick is to have the Kbuild setup correctly to have the ASM source and header files be available for building. **_We assume that appropriate kernel headers and build tools are installed_**.
+This RDRAND/RDSEED library can also be used within the kernel in case true random numbers or seeds are needed in kernel space (such as in drivers or Linux kernel modules (LKM)). The same ASM source as well as the header files are usable. In case of LKMs, ensure the Kbuild is setup correctly to have the ASM source and header files be available for building. **_We assume that appropriate kernel headers and build tools are installed_** (see [this](https://kernelnewbies.org/KernelHeaders) and [this](https://www.kernel.org/doc/Documentation/kbuild/modules.txt) for some references. Refer to your Linux distribution's guide on how to install kernel header files.)
 
 ```
-# Go to the `lkm-1` directory
+# Go to the 'lkm-1' directory
 user@host:/some/dir/git/intel-drng$ cd test/lkm-1
 
-# Build the example LKM. Notice that the `MODULE_HOME` is set to the base of the `intel-drng` project directory
+# Build the example LKM. Notice that the 'MODULE_HOME' is set to the base of the 'intel-drng' project directory
 user@host:/some/dir/git/intel-drng/test/lkm-1$ make MODULE_HOME=/some/dir/git/intel-drng
 
-# The generated LKM is the `intel-drng.ko` file. Load the module.
+# The generated LKM is 'intel-drng.ko'. Load the module.
 user@host:/some/dir/git/intel-drng/test/lkm-1$ sudo insmod ./intel-drng.ko
 
-# See the kernel log output
+# Observe the kernel log output
 user@host:/some/dir/git/intel-drng/test/lkm-1$ dmesg
 ...
 ...
@@ -74,7 +62,7 @@ user@host:/some/dir/git/intel-drng/test/lkm-1$ dmesg
 # Unload the kernel module
 user@host:/some/dir/git/intel-drng/test/lkm-1$ sudo rmmod intel-drng.ko
 
-# See the kernel log after unloading
+# Observe the kernel log after unloading
 user@host:/some/dir/git/intel-drng/test/lkm-1$ dmesg
 ...
 ...
@@ -86,6 +74,18 @@ user@host:/some/dir/git/intel-drng/test/lkm-1$ dmesg
 # Cleanup
 user@host:/some/dir/git/intel-drng/test/lkm-1$ make clean
 ```
+---
+**Example (test) applications tested with the following compiler(s)**:
+ * Linux
+     * C
+         * `(gcc -v) gcc version 7.4.0 (Ubuntu 7.4.0-1ubuntu1~18.04.1) - Target: x86_64-linux-gnu`
+         * `(clang -v) clang version 6.0.0-1ubuntu2 (tags/RELEASE_600/final) - Target: x86_64-pc-linux-gnu`
+     * C++
+         * `(g++ -v) gcc version 7.4.0 (Ubuntu 7.4.0-1ubuntu1~18.04.1) - Target: x86_64-linux-gnu`
+         * `(clang++ -v) clang version 6.0.0-1ubuntu2 (tags/RELEASE_600/final) - Target: x86_64-pc-linux-gnu`
+ * OS X
+     * C
+         * `(gcc -v) Apple clang version 11.0.0 (clang-1100.0.33.17) - Target: x86_64-apple-darwin19.3.0`
 
 **References:**
   * [Intel® Digital Random Number Generator (DRNG) Software Implementation Guide](https://software.intel.com/en-us/articles/intel-digital-random-number-generator-drng-software-implementation-guide "Intel DRNG")
