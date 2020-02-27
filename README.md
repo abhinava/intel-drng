@@ -87,10 +87,11 @@ user@host:/some/dir/git/intel-drng/test/lkm-1$ make clean
      * C
          * `(gcc -v) Apple clang version 11.0.0 (clang-1100.0.33.17) - Target: x86_64-apple-darwin19.3.0`
 
+---
 **References:**
   * [Intel® Digital Random Number Generator (DRNG) Software Implementation Guide](https://software.intel.com/en-us/articles/intel-digital-random-number-generator-drng-software-implementation-guide "Intel DRNG")
   * [The Difference Between RDRAND and RDSEED](https://software.intel.com/en-us/blogs/2012/11/17/the-difference-between-rdrand-and-rdseed "RDRAND and RDSEED")
-
+---
 > _Keywords: Intel, DRBG, DRNG, RDRAND, RDSEED, random number, TRNG, CSPRNG_
 
 ---
