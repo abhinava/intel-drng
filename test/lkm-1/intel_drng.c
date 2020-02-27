@@ -4,26 +4,33 @@
 
 #include "intel_drng.h"
 
-static int drng_init(void)
+static void generate_random_numbers(void)
 {
-	printk(KERN_INFO "Loading Intel DRNG Accessor Module\n");
+    if (!is_rdrand_available()) {
+        printk(KERN_INFO "RDRAND Capability Not Available\n");
+        return;
+    }
+
+    printk(KERN_INFO "RDRAND Capability Available!\n");
+
 #ifdef __x86_64__
     printk(KERN_INFO "64-bit Random Number: %llu\n", random_64());
 #endif
     printk(KERN_INFO "32-bit Random Number: %u\n", random_32());
     printk(KERN_INFO "16-bit Random Number: %u\n", random_16());
+}
 
+static int drng_init(void)
+{
+	printk(KERN_INFO "Loading Intel DRNG Accessor Module\n");
+    generate_random_numbers();
     return 0;
 }
 
 static void drng_exit(void)
 {
 	printk(KERN_INFO "Unloading Intel DRNG Accessor Module... Goodbye!\n");
-#ifdef __x86_64__
-    printk(KERN_INFO "64-bit Random Number: %llu\n", random_64());
-#endif
-    printk(KERN_INFO "32-bit Random Number: %u\n", random_32());
-    printk(KERN_INFO "16-bit Random Number: %u\n", random_16());
+    generate_random_numbers();
 }
 
 module_init(drng_init);
