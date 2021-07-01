@@ -88,9 +88,16 @@ user@host:/some/dir/git/intel-drng/test/lkm-1$ make clean
  * OS X
      * C
          * `(gcc -v) Apple clang version 11.0.0 (clang-1100.0.33.17) - Target: x86_64-apple-darwin19.3.0`
-
 ---
-**References:**
+# Note
+
+* **_Please read the Intel documentation (present in the [reference](#references) section) to understand the cryptograhic properties of the DRBG_**.
+* Please see [this](https://software.intel.com/en-us/articles/intel-digital-random-number-generator-drng-software-implementation-guide#inpage-nav-3-4) and [this](https://software.intel.com/en-us/articles/intel-digital-random-number-generator-drng-software-implementation-guide#inpage-nav-3-4) regarding the cryptograhic strength.
+  * For instance, if a 256-bit random number is desired, the `RDRAND` instruction should be invoked once, followed by 511 invocations which shall be ignored; The 512th invocation can be used again.
+  * However, the `RDSEED` (i.e., what Intel refers to as **ENRNG**) instruction can be used successively as values coming out of the ENRNG have multiplicative brute-force prediction resistance.
+---
+# References
+
   * [Intel® Digital Random Number Generator (DRNG) Software Implementation Guide](https://software.intel.com/en-us/articles/intel-digital-random-number-generator-drng-software-implementation-guide "Intel DRNG")
   * [The Difference Between RDRAND and RDSEED](https://software.intel.com/en-us/blogs/2012/11/17/the-difference-between-rdrand-and-rdseed "RDRAND and RDSEED")
 ---
